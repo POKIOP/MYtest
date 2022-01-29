@@ -1,5 +1,4 @@
 import csv
-import pathlib
 
 # import requests
 
@@ -15,7 +14,15 @@ import pathlib
 #         print(row)
 
 def load_csv(path_to_csv):
-    # with open (path_to_csv) as file:
-    file=pathlib.Path(path_to_csv).read_text()
-    csv_file=csv.reader(file)
-    return csv_file
+    """Open csv file to list.
+
+    Args:
+        path_to_csv (str): file to load
+
+    Returns:
+        list: loaded file
+    """
+    with open (path_to_csv) as file:  # with - opening and closing file
+        csv_file=csv.reader(file)
+        return list(csv_file)
+
