@@ -1,6 +1,26 @@
 import argparse
 import searching
 
+
+def find_numb_of_people_0(csv_file, region, passs, year, sex='both'):
+    """Returns number of people.
+
+    Args:
+        csv_file (list): csv file loaded as list
+        region (str): region of Poland or whole Poland
+        passs (str): pass or not
+        year (int): year of exam
+        sex (str, optional): sex. Defaults to 'both'.
+
+    Returns:
+        int: number of people
+    """
+    if sex == 'both':
+        number_of_women = int(find_numb_of_people_0(csv_file, region, passs, year, "kobiety"))
+        number_of_men = int(find_numb_of_people_0(csv_file, region, passs, year, "mężczyźni"))
+        return number_of_women + number_of_men
+
+
 def find_numb_of_people(csv_file, region, passs, sex, year ='all'):
     
     if year == 'all':
@@ -29,13 +49,34 @@ def find_numb_of_people2(csv_file, region, passs, sex, year ='all'):
         for row in csv_file:
             if row[0]==region and row[1]==passs and row[2]==sex:
                 found_rows.append(row[4])
-        return found_rows         
+                a=list(map(int, found_rows)) 
+        return sum(a)    
 
         
     else:
         for row in csv_file:
             if row[0]==region and row[1]==passs and row[2]==sex and row[3]==year:
                 return row[4]
+
+# results for task 2 i 3
+def find_numb_of_people_3(csv_file, region, passs, sex, year ='all'):
+    found_rows = []
+    if year == 'all' and sex == 'both':
+        for row in csv_file:
+            if row[0]==region and row[1]==passs:
+                found_rows.append(row[4])
+                a=list(map(int, found_rows)) 
+        return sum(a)   
+
+# pass='both'
+
+def pass_or_not(csv_file, region, passs, sex, year ='all'):
+    if passs == 'both':
+        number_of_przystapilo = int(pass_or_not(csv_file, region, sex, year, "przystąpiło"))
+        number_of_zdalo = int(pass_or_not(csv_file, region, passs, year, "zdało"))
+        return number_of_zdalo/number_of_przystapilo*100
+
+
 
 
 if __name__ == '__main__':
@@ -46,9 +87,8 @@ if __name__ == '__main__':
     parser=argparse.ArgumentParser(description='Show number of persons')
     parser.add_argument('--region', type=str)
     parser.add_argument('--passs', type=str)
-    parser.add_argument('--sex', type=str)
+    #parser.add_argument('--sex', type=str)
     # parser.add_argument('--year', type=int)
 
     args=parser.parse_args()
-    print(find_numb_of_people2(matura, args.region, args.passs, args.sex))
-
+    print(find_numb_of_people_3(matura, args.region, args.passs))

@@ -2,7 +2,7 @@ import argparse
 import csv
 
 
-def find_numb_of_people(csv_file, region, passs, year, sex='both'):
+def find_numb_of_people_0(csv_file, region, passs, year, sex='both'):
     """Returns number of people.
 
     Args:
@@ -16,8 +16,8 @@ def find_numb_of_people(csv_file, region, passs, year, sex='both'):
         int: number of people
     """
     if sex == 'both':
-        number_of_women = int(find_numb_of_people(csv_file, region, passs, year, "kobiety"))
-        number_of_men = int(find_numb_of_people(csv_file, region, passs, year, "mężczyźni"))
+        number_of_women = int(find_numb_of_people_0(csv_file, region, passs, year, "kobiety"))
+        number_of_men = int(find_numb_of_people_0(csv_file, region, passs, year, "mężczyźni"))
         return number_of_women + number_of_men
         
     else:
@@ -34,5 +34,4 @@ if __name__ == '__main__':
     parser.add_argument('--year', type=int)
 
     args=parser.parse_args()
-    print(find_numb_of_people(args.region, args.passs, args.sex, args.year))
-
+    print(find_numb_of_people_0(args.region, args.passs, args.sex, args.year))

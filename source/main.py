@@ -15,18 +15,36 @@
 
 # years - 4 defined
 
-import search1
-import d_load_csv
-
-matura=d_load_csv.load_csv('matura.csv')
-print(search1.find_numb_of_people(matura,region="Lubuskie", passs="przystąpiło",sex="mężczyźni"))
 
 
-#sex - both defined
 
+#task 1 , result: 15750
 # import searching
 # import d_load_csv
 
 # matura=d_load_csv.load_csv('matura.csv')
-# print(searching.find_numb_of_people(matura,region="Lubuskie",passs="przystąpiło", year="2018" ))
+# print(searching.find_numb_of_people_0(matura,region="Lubuskie",passs="przystąpiło", year="2018" ))
 
+
+#task 2, result: 77879
+# import search1
+# import d_load_csv
+
+# matura=d_load_csv.load_csv('matura.csv')
+# print(search1.find_numb_of_people_3(matura,region="Lubuskie", passs="przystąpiło", sex="both"))
+
+
+#task 3, result: 61883
+import search1
+import d_load_csv
+
+matura=d_load_csv.load_csv('matura.csv')
+print(search1.find_numb_of_people_3(matura,region="Lubuskie", passs="zdało", sex="both"))
+
+
+#task 4, result: 79.46%
+import search1
+import d_load_csv
+
+matura=d_load_csv.load_csv('matura.csv')
+print(search1.find_numb_of_people_3(matura,region="Lubuskie", passs="zdało", sex="both"))
