@@ -2,7 +2,7 @@ import argparse
 import csv
 
 def proceed_in_year(csv_file, region, passs, year, sex = 'both'):
-    """Returns number of people.
+    """Returns number of people who proceeded to exam in particular region and year.
 
     Args:
         csv_file (list): csv file loaded as list
@@ -22,7 +22,7 @@ def proceed_in_year(csv_file, region, passs, year, sex = 'both'):
   
 
 def proceed_all_years(csv_file, region, passs, sex, year = 'all'):
-    """Returns number of people. ZROBIC !!!
+    """Returns number of people who proceeded to exam in all years.
 
     Args:
         csv_file (list): csv file loaded as list
@@ -50,7 +50,7 @@ def proceed_all_years(csv_file, region, passs, sex, year = 'all'):
 
 
 def pass_all_years(csv_file, region, passs, sex, year = 'all'):
-    """Returns number of people. ZROBIC !!!
+    """Returns number of people who passed exam.
 
     Args:
         csv_file (list): csv file loaded as list
@@ -71,22 +71,22 @@ def pass_all_years(csv_file, region, passs, sex, year = 'all'):
         ###
 
 def proceed_vs_pass(csv_file, region, sex = 'both', year ='all'):
-    """Returns number of people. ZROBIC !!!
+    """Returns percent of people who passed exam.
 
     Args:
         csv_file (list): csv file loaded as list
         region (str): region of Poland or whole Poland
-        passs (str): pass or not
-        year (int): year of exam
-        sex (str, optional): sex. Defaults to 'both'.
+        passs (str): passed
+        year (int): all years
+        sex (str): both.
 
     Returns:
         int: number of people
     """
     zdalo = pass_all_years(csv_file, region, passs = 'zdało', sex = 'both', year = 'all')
     przystapilo = pass_all_years(csv_file, region, passs = 'przystąpiło', sex = 'both', year = 'all')
-    return zdalo / przystapilo * 100 # 2 liczby po przecinku, znak % lub docs.
-    
+    p = round(zdalo / przystapilo * 100, 2)
+    return '{}%'.format(p)
 
 
 
