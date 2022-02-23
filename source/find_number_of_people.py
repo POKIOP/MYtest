@@ -1,6 +1,19 @@
 import argparse
 import csv
 
+def find_row(csv_file, region, passs, year, sex = 'both'):
+    found_rows=[]
+    for row in csv_file:
+        if row[0]==region and row[1]==passs and row[2]==sex:
+            found_rows.append(row)
+        elif sex == 'both':
+            if row[0]==region and row[1]==passs and row[2] == "mężczyźni":
+                found_rows.append(row)
+            if row[0]==region and row[1]==passs and row[2] == "kobiety":
+                found_rows.append(row)
+    return found_rows ### przerobic, jak podam region to znajdzie region, podaj mi te argumenty ktore szukam, np. podam region lubuskie i pokaze mi wszystkie linijki gdzie jest lubuskie 
+
+
 def proceed_in_year(csv_file, region, passs, year, sex = 'both'):
     """Returns number of people who proceeded to exam in particular region and year.
 
@@ -14,12 +27,17 @@ def proceed_in_year(csv_file, region, passs, year, sex = 'both'):
     Returns:
         int: number of people
     """
+    
     if sex == 'both':
         number_of_women = int(proceed_in_year(csv_file, region, passs, year, "kobiety"))
         number_of_men = int(proceed_in_year(csv_file, region, passs, year, "mężczyźni"))
         return number_of_women + number_of_men
 
-  
+    else:
+        for row in csv_file:
+            if row[0]==region and row[1]==passs and row[2]==sex and row[3]==year:
+                return row[4]
+        
 
 def proceed_all_years(csv_file, region, passs, sex, year = 'all'):
     """Returns number of people who proceeded to exam in all years.
@@ -34,22 +52,17 @@ def proceed_all_years(csv_file, region, passs, sex, year = 'all'):
     Returns:
         int: number of people
     """
-    found_rows = []
+    
     if year == 'all':
-        for row in csv_file:
-            if row[0] == region and row[1] == passs and row[2] == sex:
-                found_rows.append(row[4])
-                return sum([int(x) for x in found_rows])
-        ###    
-
-        
+        found_rows = find_row(csv_file, region, passs, sex)
+        return sum(int(row[4]) for row in found_rows)    
     else:
         for row in csv_file:
             if row[0] == region and row[1] == passs and row[2] == sex and row[3] == year:
                 return row[4]
 
 
-def pass_all_years(csv_file, region, passs, sex, year = 'all'):
+def pass_all_years(csv_file, region, passs, sex, year = 'all'): ### inna nazwa funkcji ????
     """Returns number of people who passed exam.
 
     Args:
@@ -67,10 +80,10 @@ def pass_all_years(csv_file, region, passs, sex, year = 'all'):
         for row in csv_file:
             if row[0] == region and row[1] == passs:
                 found_rows.append(row[4])
-                return sum([int(x) for x in found_rows])
-        ###
+        return sum(int(x) for x in found_rows)
+    
 
-def proceed_vs_pass(csv_file, region, sex = 'both', year ='all'):
+def proceed_vs_pass(csv_file, region, sex = 'both', year ='all'): ### zmienic nazwe funkcji ????
     """Returns percent of people who passed exam.
 
     Args:
@@ -81,12 +94,12 @@ def proceed_vs_pass(csv_file, region, sex = 'both', year ='all'):
         sex (str): both.
 
     Returns:
-        int: number of people
+        float: number of people
     """
-    zdalo = pass_all_years(csv_file, region, passs = 'zdało', sex = 'both', year = 'all')
+    zdalo = pass_all_years(csv_file, region, passs = 'zdało', sex = sex, year = year)
     przystapilo = pass_all_years(csv_file, region, passs = 'przystąpiło', sex = 'both', year = 'all')
-    p = round(zdalo / przystapilo * 100, 2)
-    return '{}%'.format(p)
+    percentage = round(zdalo / przystapilo * 100, 2)
+    return f'{percentage}%'
 
 
 
