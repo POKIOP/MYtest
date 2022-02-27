@@ -62,7 +62,7 @@ def proceed_all_years(csv_file, region, passs, sex, year = 'all'):
                 return row[4]
 
 
-def pass_all_years(csv_file, region, passs, sex, year = 'all'): ### inna nazwa funkcji ????
+def number_of_people_who_passed(csv_file, region, passs, sex, year = 'all'):
     """Returns number of people who passed exam.
 
     Args:
@@ -83,7 +83,7 @@ def pass_all_years(csv_file, region, passs, sex, year = 'all'): ### inna nazwa f
         return sum(int(x) for x in found_rows)
     
 
-def proceed_vs_pass(csv_file, region, sex = 'both', year ='all'): ### zmienic nazwe funkcji ????
+def percent_of_passed(csv_file, region, sex = 'both', year ='all'):
     """Returns percent of people who passed exam.
 
     Args:
@@ -96,8 +96,8 @@ def proceed_vs_pass(csv_file, region, sex = 'both', year ='all'): ### zmienic na
     Returns:
         float: number of people
     """
-    zdalo = pass_all_years(csv_file, region, passs = 'zdało', sex = sex, year = year)
-    przystapilo = pass_all_years(csv_file, region, passs = 'przystąpiło', sex = 'both', year = 'all')
+    zdalo = number_of_people_who_passed(csv_file, region, passs = 'zdało', sex = sex, year = year)
+    przystapilo = number_of_people_who_passed(csv_file, region, passs = 'przystąpiło', sex = 'both', year = 'all')
     percentage = round(zdalo / przystapilo * 100, 2)
     return f'{percentage}%'
 

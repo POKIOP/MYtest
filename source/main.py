@@ -19,7 +19,7 @@
 # import d_load_csv
 
 # matura = d_load_csv.load_csv('matura.csv')
-# print(find_number_of_people.pass_all_years(matura,region = "Lubuskie", passs = "zdało", sex = "both"))
+# print(find_number_of_people.number_of_people_who_passed(matura,region = "Lubuskie", passs = "zdało", sex = "both"))
 
 
 #task 4, result: 79.46 %
@@ -27,4 +27,4 @@ import find_number_of_people
 import d_load_csv
 
 matura = d_load_csv.load_csv('matura.csv')
-print(find_number_of_people.proceed_vs_pass(matura,region = "Lubuskie"))
+print(find_number_of_people.percent_of_passed(matura,region = "Lubuskie"))
