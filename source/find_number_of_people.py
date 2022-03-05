@@ -2,16 +2,18 @@ import argparse
 import csv
 
 def find_row(csv_file, region, passs, year, sex = 'both'):
-    found_rows=[]
+    found_rows = []
     for row in csv_file:
-        if row[0]==region and row[1]==passs and row[2]==sex:
+        if row[0] == region and row[1] == passs and row[2] == sex:
             found_rows.append(row)
         elif sex == 'both':
-            if row[0]==region and row[1]==passs and row[2] == "mężczyźni":
+            if row[0] == region and row[1] == passs and row[2] == "mężczyźni":
                 found_rows.append(row)
-            if row[0]==region and row[1]==passs and row[2] == "kobiety":
+            if row[0] == region and row[1] == passs and row[2] == "kobiety":
                 found_rows.append(row)
-    return found_rows ### przerobic, jak podam region to znajdzie region, podaj mi te argumenty ktore szukam, np. podam region lubuskie i pokaze mi wszystkie linijki gdzie jest lubuskie 
+            if row[1] == passs and row[2] == sex and row[0] == "lubuskie":
+                found_rows.append(row)
+    return found_rows ### przerobic, np. podam region lubuskie i pokaze mi wszystkie linijki gdzie jest lubuskie 
 
 
 def proceed_in_year(csv_file, region, passs, year, sex = 'both'):
