@@ -13,6 +13,7 @@ import csv
 #     for row in my_list:
 #         print(row)
 
+
 def load_csv(path_to_csv):
     """Open csv file to list.
 
@@ -22,7 +23,6 @@ def load_csv(path_to_csv):
     Returns:
         list: loaded file
     """
-    with open (path_to_csv) as file:  # with - opening and closing file
-        csv_file=csv.reader(file)
+    with open(path_to_csv) as file:  # with - opening and closing file
+        csv_file = csv.reader(file)
         return list(csv_file)
-
