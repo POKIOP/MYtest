@@ -1,5 +1,6 @@
-import argparse
-import csv
+"""" This file has 5 functions. These functions using file 'matura.csv',
+returns data about people from Poland who proceed and passed
+school leaving exam """
 
 
 def find_row(csv_file, region, passs, year, sex="both"):
@@ -14,11 +15,12 @@ def find_row(csv_file, region, passs, year, sex="both"):
                 found_rows.append(row)
             if row[1] == passs and row[2] == sex and row[0] == "lubuskie":
                 found_rows.append(row)
-    return found_rows  ### przerobic, np. podam region lubuskie i pokaze mi wszystkie linijki gdzie jest lubuskie
+    return found_rows
 
 
 def proceed_in_year(csv_file, region, passs, year, sex="both"):
-    """Returns number of people who proceeded to exam in particular region and year.
+    """Returns number of people who proceeded to exam in particular region
+    and year.
 
     Args:
         csv_file (list): csv file loaded as list
@@ -32,8 +34,12 @@ def proceed_in_year(csv_file, region, passs, year, sex="both"):
     """
 
     if sex == "both":
-        number_of_women = int(proceed_in_year(csv_file, region, passs, year, "kobiety"))
-        number_of_men = int(proceed_in_year(csv_file, region, passs, year, "mężczyźni"))
+        number_of_women = int(
+            proceed_in_year(csv_file, region, passs, year, "kobiety")
+        )
+        number_of_men = int(
+            proceed_in_year(csv_file, region, passs, year, "mężczyźni")
+        )
         return number_of_women + number_of_men
 
     else:
@@ -117,18 +123,3 @@ def percent_of_passed(csv_file, region, sex="both", year="all"):
     )
     percentage = round(zdalo / przystapilo * 100, 2)
     return f"{percentage}%"
-
-
-# if __name__ == '__main__':
-#     import d_load_csv
-
-#     matura=d_load_csv.load_csv('matura.csv')
-
-#     parser=argparse.ArgumentParser(description='Show number of persons')
-#     parser.add_argument('--region', type=str)
-#     parser.add_argument('--passs', type=str)
-#     parser.add_argument('--sex', type=str)
-#     parser.add_argument('--year', type=int)
-
-#     args=parser.parse_args()
-#     print(proceed_in_year(matura, args.region, args.passs, args.sex, args.year))
