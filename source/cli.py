@@ -1,33 +1,20 @@
-# import argparse
+from unicodedata import name
 import find_number_of_people
+import load_csv as load_csv
 
-
-# def get_parser():
-#     parser = argparse.ArgumentParser(description="This program shows you data about results of exams")
-#     parser.add_argument("--name", type=str, help="Put your name")
-#     args = parser.parse_args()
-#     return args
+matura = load_csv.load_csv("matura.csv")
 
 
 def welcome(name):
-    """Returns welcome text
-
-    Args:
-        name (str): Put your name
-
-    Returns:
-        str: welcome text
-    """
     return f"""Welcome in my program {name}.
-    Choose the option:
-                1 (Percent of passed)
-                2 ()
-                3
-                4
-                5."""
+    What do you want to know ? Choose the option:
+                1. People who proceed in particular year.
+                2. People who proceed in all years.
+                3. Number of people who passed in particular year.
+                4. Percent of people who passed"""
 
 
-def user_input(text_to_show="Provide text: "):
+def user_input(text_to_show):
     value = input(text_to_show)
     return value
 
@@ -35,11 +22,44 @@ def user_input(text_to_show="Provide text: "):
 def quest(question):
     if question == ("no"):
         print("Thank you and goodbye.")
-    # else:
-    #     print("What is your name ?")
+    else:
+        welcome(name)
 
 
-if __name__ == "__main__":
-    args = get_parser()
-    print(welcome(args.name))
-    print(find_number_of_people.proceed_all_years.__doc__)
+def search(user_choice):
+    if user_choice == "1":
+        region_of_Poland = user_input("Put region: ")
+        year_of_exam = user_input("Put year: ")
+        print(
+            "The result is: "
+            + str(
+                find_number_of_people.proceed_in_year(
+                    matura,
+                    passs="zdało",
+                    region=region_of_Poland,
+                    year=year_of_exam,
+                )
+            )
+        )
+    elif user_choice == "2":
+        print(
+            "The result is: "
+            + str(
+                find_number_of_people.proceed_in_year(
+                    matura,
+                    passs="zdało",
+                    region="Lubuskie",
+                    year="2018",
+                )
+            )
+        )
+    elif user_choice == "3":
+        print(
+            find_number_of_people.proceed_all_years(
+                matura,
+                passs="zdało",
+                region="Lubuskie",
+                year="2018",
+                sex="kobiety",
+            )
+        )
