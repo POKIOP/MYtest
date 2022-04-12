@@ -1,4 +1,3 @@
-from unicodedata import name
 import find_number_of_people
 import load_csv as load_csv
 
@@ -19,13 +18,6 @@ def user_input(text_to_show):
     return value
 
 
-def quest(question):
-    if question == ("no"):
-        print("Thank you and goodbye.")
-    else:
-        welcome(name)
-
-
 def search(user_choice):
     if user_choice == "1":
         region_of_Poland = user_input("Put region: ")
@@ -35,31 +27,52 @@ def search(user_choice):
             + str(
                 find_number_of_people.proceed_in_year(
                     matura,
-                    passs="zdało",
+                    passs="przystąpiło",
                     region=region_of_Poland,
                     year=year_of_exam,
                 )
             )
         )
     elif user_choice == "2":
+        region_of_Poland = user_input("Put region: ")
         print(
             "The result is: "
             + str(
-                find_number_of_people.proceed_in_year(
+                find_number_of_people.proceed_all_years(
                     matura,
-                    passs="zdało",
-                    region="Lubuskie",
-                    year="2018",
+                    passs="przystąpiło",
+                    region=region_of_Poland,
+                    year="all",
+                    sex="both",
                 )
             )
         )
     elif user_choice == "3":
+        region_of_Poland = user_input("Put region: ")
+
         print(
-            find_number_of_people.proceed_all_years(
-                matura,
-                passs="zdało",
-                region="Lubuskie",
-                year="2018",
-                sex="kobiety",
+            "The result is: "
+            + str(
+                find_number_of_people.number_of_people_who_passed(
+                    matura,
+                    passs="zdało",
+                    region=region_of_Poland,
+                    year="all",
+                    sex="both",
+                )
+            )
+        )
+    elif user_choice == "4":
+        region_of_Poland = user_input("Put region: ")
+
+        print(
+            "The result is: "
+            + str(
+                find_number_of_people.percent_of_passed(
+                    matura,
+                    region=region_of_Poland,
+                    year="all",
+                    sex="both",
+                )
             )
         )
